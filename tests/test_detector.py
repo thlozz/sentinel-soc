@@ -11,7 +11,7 @@ def fixture_events():
 def test_bruteforce_and_success():
     alerts = detect(fixture_events())
     assert set(alerts.rule) == {"Repeated authentication failures", "Successful login after repeated failures"}
-    assert set(alerts.mitre) == {"T1110"}
+    assert set(alerts.mitre) == {"T1110", "T1110, T1078"}
 
 
 def test_no_false_alert_for_separate_ips():
@@ -26,7 +26,7 @@ def test_missing_columns():
 
 
 def test_invalid_timestamp():
-    df = fixture_events()
+    df = fixture_events().astype({"timestamp": "str"})
     df.loc[0, "timestamp"] = "not-a-date"
     with pytest.raises(ValueError, match="timestamps inválidos"):
         normalize(df)
