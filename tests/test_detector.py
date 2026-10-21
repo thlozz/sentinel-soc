@@ -10,7 +10,7 @@ def fixture_events():
 
 def test_bruteforce_and_success():
     alerts = detect(fixture_events())
-    assert set(alerts.rule) == {"Repeated authentication failures", "Successful login after repeated failures"}
+    assert set(alerts.rule) == {"Falhas repetidas de autenticação", "Sucesso após falhas repetidas"}
     assert set(alerts.mitre) == {"T1110", "T1110, T1078"}
 
 
