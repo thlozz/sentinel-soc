@@ -27,7 +27,7 @@ PAGES = ["Fila de alertas", "Investigação", "Explorar eventos", "Indicadores",
 
 with st.sidebar:
     st.title("Sentinel SOC")
-    page = st.radio("Navegação", PAGES)
+    page = st.radio("Navegação", PAGES, key="pagina")
     st.divider()
     upload = st.file_uploader("Importar eventos", type=["csv", "log", "txt"])
     fmt = st.selectbox("Formato de entrada", ["CSV Sentinel", "SSH / HTTP"])
@@ -138,7 +138,7 @@ if page == "Fila de alertas":
     )
     if selection.selection.rows:
         st.session_state.selected_alert = int(filtrados.index[selection.selection.rows[0]])
-        st.session_state.open_investigation = True
+        st.session_state.pagina = "Investigação"
         st.rerun()
     baixar_csv("Exportar alertas", filtrados, "alertas.csv")
     st.info("Os alertas são indicadores para investigação, não provas de invasão.")
